@@ -2,6 +2,7 @@ const toggle = document.getElementById('toggle');
 const close = document.getElementById('close');
 const open = document.getElementById('open');
 const modal = document.getElementById('modal');
+const title = document.getElementById('title');
 const search = document.getElementById('search'),
   submit = document.getElementById('submit'),
   random = document.getElementById('random'),
@@ -23,7 +24,6 @@ function searchMeal(e) {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         resultHeading.innerHTML = `<h2>Search results for '${term}':</h2>`;
         if (data.meals === null) {
           resultHeading.innerHTML = `<p>There are no search results. Try again.<p>`;
@@ -55,7 +55,6 @@ function getMealById(mealID) {
     .then((res) => res.json())
     .then((data) => {
       const meal = data.meals[0];
-      console.log(meal.strInstructions);
       addMealToDOM(meal);
     });
 }
@@ -72,7 +71,7 @@ function getRandomMeal() {
     .then((data) => {
       const meal = data.meals[0];
       addMealToDOM(meal);
-    }, modal.classList.add('show-modal'));
+    });
 }
 
 // Add meal to DOM
@@ -111,6 +110,10 @@ function addMealToDOM(meal) {
 
 submit.addEventListener('submit', searchMeal);
 random.addEventListener('click', getRandomMeal);
+title.addEventListener(
+  'click',
+  () => ((mealsEl.innerHTML = ''), (resultHeading.innerHTML = ''))
+);
 
 //Hide modal
 close.addEventListener('click', () => modal.classList.remove('show-modal'));
