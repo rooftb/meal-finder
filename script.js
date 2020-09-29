@@ -71,7 +71,7 @@ function getRandomMeal() {
     .then((data) => {
       const meal = data.meals[0];
       addMealToDOM(meal);
-    });
+    }, modal.classList.add('show-modal'));
 }
 
 // Add meal to DOM
