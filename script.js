@@ -123,7 +123,8 @@ window.addEventListener('click', (e) =>
 );
 
 mealsEl.addEventListener('click', (e) => {
-  const mealInfo = e.path.find((item) => {
+  const path = e.path || (e.composedPath && e.composedPath());
+  const mealInfo = path.find((item) => {
     if (item.classList) {
       return item.classList.contains('meal-info');
     } else {
